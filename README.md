@@ -1,11 +1,32 @@
 # Computer vision project
 
-## Milestone 1 - 'Talk about the model and how you will use it for this project.'
+## Milestone 1
 
-To start of the project an image project model was made using a teachable machine. This model has stored many images that result to the following elements: rock, paper, scissors and nothing. Essentially this is the core of this project that makes the game work. Now that the model is complete the model was run on the computer using a code. The aim was to see if the model works properly by checking if the camera rightfully identifies the elements using hand signs. The information would be written into a code that would act as the user’s choice in the game.
+To start of the project an image project model was made using a teachable machine. This model stored many images that resulted to the following elements: rock, paper, scissors and nothing. Essentially this was the core of this project that would make the game work. Once the model was completed it was run on the computer using a code (see below). The aim was to see if the model works properly by checking if the camera rightfully identifies the elements using hand signs. This information would be written into a code that would act as the user’s choice in the game.
 
+```python
+"""import cv2
+from keras.models import load_model
+import numpy as np
+model = load_model('keras_model.h5')
+cap = cv2.VideoCapture(0)
+data = np.ndarray(shape=(1, 224, 224, 3), dtype=np.float32)
 
-## Milestone 3 - 'Talk about how you setup your environment and the code you have written for the game'
+while True: 
+    ret, frame = cap.read()
+    resized_frame = cv2.resize(frame, (224, 224), interpolation = cv2.INTER_AREA)
+    image_np = np.array(resized_frame)
+    normalized_image = (image_np.astype(np.float32) / 127.0) - 1 # Normalize the image
+    data[0] = normalized_image
+    prediction = model.predict(data)
+    cv2.imshow('frame', frame)
+    # Press q to close the window
+    print(prediction)
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break"""
+```
+
+## Milestone 3
 
 ### The environment 
 The environment was created using conda commands by first downloading miniconda. Miniconda is a minimal installer of conda which was needed for the next steps. The environment was than created by using ‘conda create --…’ whereby the environment was named as ‘test’. Following the creation of the environment it was activated using ‘conda activate test’. Following the completion of setting up the environment, ‘pip’ was used to allow OpenCV and TensorFlow to be installed (Pip install….). These libraries would be present in this environment therefore the previously downloaded model was moved into the directory where this environment was found.
@@ -15,12 +36,15 @@ A random.choice()= code was used for the computer with the options being ‘rock
 
 #### Webcam
 Whilst the ‘messages’ that will be displayed onto the screen were being written it was apparent that they don’t fit the webcam size. Therefore, in the code: 
-'cv2.putText(frame,message, (30,30), cv2.FONT_HERSHEY_DUPLEX, 0.75, (0, 0, 255), 1)'
+
+```python 
+"""cv2.putText(frame,message, (30,30), cv2.FONT_HERSHEY_DUPLEX, 0.75, (0, 0, 255), 1)"""
+```
 The font size (0.75) was reduced so the message is clearly visible in the webcam.
 
 ## Final Milestone 
 
-The game is completed and it functions using the traditional rules of a rock, paper and scissors game, but it also has some extra features which will be described below. 
+The game is completed and it functions using the traditional rules of a rock, paper and scissors game, but it also has some extra features which are described below. 
 
 A countdown has been added to allow the user to have time to put their choice of rock, paper or scissors up. There is also an option of ‘nothing’ for both the computer and the user this therefore gives both side equal probability of picking any of the options. Whilst it is true ‘nothing’ is not an option it is crucial as it allows the computer to understand ‘nothing’ has been shown if the user was too late to pick a choice. The game has been formatted in such a way that neither the computer nor the user benefit from the ‘nothing’ option. This game also incorporates a score which gives one point if the right conditions are met for both the computer and the user. The reason the computer has been given a score is solely to allow for a competition where the user can lose too rather than just the user trying to win. The game provides a message following the win of three rounds for both, hence allowing there to be a final to the game rather than an endless game. However, at the same time it is possible to carry on if the user wishes so. 
 
